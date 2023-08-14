@@ -13,17 +13,17 @@ public class Main {
         System.out.println(arjitAlbum.addToAlbum("Tum kya mile",4.2));
         System.out.println(arjitAlbum.addToAlbum("Lal Ishq",5.1));
 
-        alanAlum.addToAlbum("Faded",4.7);
-        alanAlum.addToAlbum("Alone",4.1);
-        alanAlum.addToAlbum("Darkside",2.5);
+        System.out.println(alanAlum.addToAlbum("Faded",4.7));
+        System.out.println(alanAlum.addToAlbum("Alone",4.1));
+        System.out.println(alanAlum.addToAlbum("Darkside",2.5));
 
         LinkedList<Song> myPlaylist=new LinkedList<>();
-        arjitAlbum.addToPlaylistFromAlbum("Kesaria",myPlaylist);
-        arjitAlbum.addToPlaylistFromAlbum(2,myPlaylist);
-        arjitAlbum.addToPlaylistFromAlbum(5,myPlaylist);
+        System.out.println(arjitAlbum.addToPlaylistFromAlbum("Keseria",myPlaylist));
+        System.out.println(arjitAlbum.addToPlaylistFromAlbum("Tum kya mile",myPlaylist));
+        System.out.println(arjitAlbum.addToPlaylistFromAlbum("Lal Ishq",myPlaylist));
 
-        alanAlum.addToPlaylistFromAlbum("Alnone",myPlaylist);
-        alanAlum.addToPlaylistFromAlbum(3,myPlaylist);
+        System.out.println(alanAlum.addToPlaylistFromAlbum("Faded",myPlaylist));
+        System.out.println(alanAlum.addToPlaylistFromAlbum("Alone",myPlaylist));
 
         play(myPlaylist);
     }
@@ -39,6 +39,8 @@ public class Main {
         Scanner sc=new Scanner(System.in);
         printMenu();
 
+        boolean wasNext=true;
+
         boolean quit = false;
         while(!quit){
             System.out.println("Enter your option");
@@ -49,6 +51,10 @@ public class Main {
                     printMenu();
                     break;
                 case 2:
+                    if(wasNext==false){
+                        itr.next();
+                        wasNext=true;
+                    }
                     if(!itr.hasNext()){
                         System.out.println("End of playlist");
                     }
@@ -57,17 +63,32 @@ public class Main {
                     }
                     break;
                 case 3:
+                    if(wasNext==true){
+                        itr.previous();
+                        wasNext=false;
+                    }
                     if(!itr.hasPrevious()){
                         System.out.println("You are at start of playlist");
                     }
+                    else{
+                        System.out.println("Currently playing : "+itr.previous());
+                    }
                     break;
                 case 4:
+                    System.out.println("Currently playing : "+itr.previous());
                     break;
                 case 5:
+                    if(wasNext==false){
+                        itr.next();
+                        wasNext=true;
+                    }
+                    System.out.println("Song Deleted");
+                    itr.remove();
                     break;
                 case 6:printSongs(myPlaylist);
                     break;
-                case 7:quit=true;
+                case 7:
+                    quit=true;
                     break;
                 default:
                     System.out.println("Wrong choice. Please select again");
